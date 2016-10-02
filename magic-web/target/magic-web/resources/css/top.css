@@ -1,0 +1,15 @@
+body{
+	text-align: center;
+	background-repeat: no-repeat;
+	background-color: #DEEEFE;
+	padding-left: 20px;
+	background-position: 30px;
+}
+
+.top_user{
+	float: right;
+}
+
+h1{
+	display: inline;
+}

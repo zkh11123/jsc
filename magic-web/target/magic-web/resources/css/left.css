@@ -1,0 +1,49 @@
+.left_menu{
+	text-align: left;
+	padding-left: 40px;
+}
+
+.left_list{
+	list-style: none;
+	margin : 0px;
+	padding: 0px;
+}
+
+li{
+	padding-bottom: 5px;
+	padding-top : 5px;
+}
+button{
+	border: 0px;
+	background-color: white;
+	font-size: inherit;
+}
+
+.left_upload {
+	border-bottom: 1px solid #dadada;
+	margin-left: 0px;
+}
+
+.left_upload a{
+	background-image : url("/resources/image/upload.png");
+	background-repeat: no-repeat;
+	border-bottom-width: 1px;
+	border-bottom-color: silver;
+}
+
+.left_myfile a{
+	background-image : url("/resources/image/my.jpg");
+	background-repeat: no-repeat;
+}
+
+li a{
+	padding-left: 25px;
+	text-decoration: none;
+	color: #636363;
+	display: block;
+	margin-left: 20px;
+}
+
+h2 a{
+	text-decoration: none;
+}

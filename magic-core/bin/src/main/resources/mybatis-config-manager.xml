@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<!-- changes from the defaults -->
+		<setting name="lazyLoadingEnabled" value="false" />
+		<!-- JdbcType enumeration. Most common are: NULL, VARCHAR and OTHER -->
+		<setting name="jdbcTypeForNull" value="NULL" />	
+	</settings>
+
+	<typeAliases>
+		<typeAlias alias="user" type="com.xiu.admin.model.User" />
+		<typeAlias alias="menu" type="com.xiu.admin.model.Menu" />
+		<typeAlias alias="secMenu" type="com.xiu.admin.model.SecMenu" />
+		<typeAlias alias="role" type="com.xiu.admin.model.Role" />
+		<typeAlias alias="category" type="com.xiu.admin.model.Category" />
+		<typeAlias alias="roleMenu" type="com.xiu.admin.model.RoleMenu" />
+		<typeAlias alias="dept" type="com.xiu.admin.model.Dept" />
+		<typeAlias alias="deptMenu" type="com.xiu.admin.model.DeptMenu" />
+		<typeAlias alias="deptRole" type="com.xiu.admin.model.DeptRole" />
+		<typeAlias alias="userRole" type="com.xiu.admin.model.UserRole" />
+		<typeAlias alias="userDept" type="com.xiu.admin.model.UserDept" />
+		<typeAlias alias="userGroup" type="com.xiu.admin.model.UserGroup" />
+		<typeAlias alias="userUserGroup" type="com.xiu.admin.model.UserUserGroup" />
+		<typeAlias alias="userResetHelp" type="com.xiu.admin.model.UserResetHelp" />
+		<typeAlias alias="casOperLog" type="com.xiu.log.model.CasOperLog" />
+	</typeAliases>
+
+	<!-- <mappers> <mapper resource="sqlmaps/UserSQL.xml" /> </mappers> -->
+</configuration>

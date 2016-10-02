@@ -1,0 +1,105 @@
+.upload_tab{
+	float: left;
+	padding-top : 10px;
+	cursor: pointer;
+	width: 80px;
+	text-align: center;
+}
+
+.header_title{
+	margin-left: 140px;
+}
+
+.upload_vedio{
+	border-top-color: #3E96D6;
+	border-top-width: 3px;
+	border-top-style: solid;
+	font-weight: bold;
+}
+.upload_image{
+	border-top-color: #C8DCF2;
+	border-top-width: 1px;
+	border-top-style: solid;
+	font-weight: normal;
+}
+.upload_text{
+	border-top-color: #C8DCF2;
+	border-top-width: 1px;
+	border-top-style: solid;
+	font-weight: normal;
+}
+
+.upload_container{
+	width: 100%;
+	height: 500px;
+	margin-top: 10px;
+	padding-top: 10px;
+}
+
+.upload_tabs{
+	margin-left: 100px;
+	height: 50px;
+}
+
+.upload_tab a{
+	text-decoration: none;
+	color: black;
+}
+
+.upload_input{
+	margin-top: 20px;
+	font-size: large;
+}
+
+.upload_button{
+	margin-top: 50px;
+	font-size: large;
+	margin-left: 30px;
+}
+
+.upload_input input{
+	width: 635px;
+    padding: 8px;
+    border: 2px solid #95C8FD;
+    line-height: 18px;
+    font-size: 14px;
+}
+
+.upload_button input{
+	display: inline-block;
+    height: 34px;
+    width: 150px;
+    margin-left : 20px;
+    text-align: center;
+    cursor: pointer;
+    color: rgb(255, 255, 255);
+    background: rgb(105, 185, 70);
+    font: x-large 微软雅黑;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: transparent;
+}
+
+.upload_content{
+	padding-left: 40px;
+}
+
+/*当文本框内容输入正确时，提示文本的样式*/
+.error_prompt{
+	background-color:#fff2e5;
+	background-image:url(/resources/image/li_err.gif);
+	background-repeat:no-repeat;
+	background-position:3px 2px;
+	padding:2px 5px 2px 20px;
+	margin-left:20px;
+	line-height:20px;
+}
+.ok_prompt{
+	background-image:url(/resources/image/li_ok.gif);
+	background-repeat:no-repeat;
+	background-position:3px 2px;
+	padding:2px 5px 2px 20px;
+	margin-left:20px;
+	line-height:20px;
+}

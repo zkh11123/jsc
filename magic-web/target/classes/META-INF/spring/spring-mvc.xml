@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">	
+	<!-- <context:property-placeholder location="classpath:/META-INF/db.properties" /> -->
+
+	<context:annotation-config></context:annotation-config>
+	<context:component-scan base-package="com.mgc.user.controller" />
+
+	<mvc:interceptors>
+        <bean
+            class="org.springframework.web.servlet.mvc.WebContentInterceptor">
+            <property name="cacheSeconds" value="0" />
+            <property name="useExpiresHeader" value="true" />
+            <property name="useCacheControlHeader" value="true" />
+            <property name="useCacheControlNoStore" value="true" />
+            <property name="alwaysUseFullPath" value="true" />
+            <property name="cacheMappings">
+                <props>
+                    <!-- cache for 2 hour -->
+                    <prop key="/resources/**">0</prop>
+                    <prop key="/vedio/**">0</prop>
+                    <!-- don't set cache headers -->
+                    <prop key="/**">0</prop>
+                </props>
+            </property>
+        </bean>
+        
+        <bean id="authorizationInterceptor"
+            class="com.mgc.common.annotation.AuthorizationInterceptor">
+        </bean>
+    </mvc:interceptors>
+
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
+	
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	
+	<mvc:annotation-driven validator="validator" />
+	
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+	    <property name="order" value="1" />	
+	    <!-- 用于开启 /userinfo/123?format=json 的支持  默认是true-->  
+		<property name="favorParameter" value="true"/>
+	    <!-- 用于关闭 /userinfo/123.json 的支持  默认是true-->  
+	    <property name="favorPathExtension" value="false"/>
+	    <!-- 设置为true以忽略对Accept Header的支持  -->
+	    <property name="ignoreAcceptHeader" value="true" />
+	    	
+	    <!-- 在没有扩展名时即: "/user/1" 时的默认展现形式 -->  
+		<property name="defaultContentType" value="text/html"/>
+		
+		<!-- 扩展名至mimeType的映射,即 /user.json => application/json -->  
+		<property name="mediaTypes">
+	      <map>
+	        <entry key="json" value="application/json" />
+	      </map>
+	    </property>
+	    <property name="defaultViews">
+	      <list>
+	        <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
+	          <property name="modelKey" value="data" />
+	          <property name="extractValueFromSingleKeyModel" value="true" />
+	        </bean>
+	      </list>
+	    </property>
+	</bean>
+	
+	 <bean id="annotationMethodHandlerAdapter" class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+	    <!-- TODO: 需确认messageConverters是否可被删除 -->
+	    <property name="messageConverters">
+	      <list>
+	      	<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>  
+	        <ref bean="mappingJacksonHttpMessageConverter" />
+	      </list>
+	    </property>
+	    <property name="webBindingInitializer">
+	      <bean id="configurableWebBindingInitializer" class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+	        <property name="validator">
+	          <ref bean="validator" />
+	        </property>
+	      </bean>
+	    </property>
+	  </bean>
+	  <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+	  <!-- 需确认mappingJacksonHttpMessageConverter的配置是否可被删除  -->
+	  <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+	    <property name="supportedMediaTypes">
+	      <list>
+	        <value>text/html;charset=UTF-8</value>
+	      </list>
+	    </property>
+	  </bean>
+	
+	<!-- 定义JSP -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/view/jsp/" />
+	    <property name="suffix" value=".jsp" />
+	    <property name="contentType" value="text/html; charset=utf-8" />
+	</bean>
+	
+ 	<!-- 文件上传  1G-->    
+    <bean id="multipartResolver" 
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> 
+        <!-- set the max upload size100MB --> 
+        <property name="maxUploadSize"> 
+            <value>1073741824</value> 
+        </property> 
+        <property name="maxInMemorySize"> 
+            <value>104857600</value> 
+        </property> 
+    </bean> 
+    
+    <!-- <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
+       <property name="exceptionMappings">  
+           <props>  
+               <prop key="java.lang.Throwable">error/errorPage</prop>
+           </props>  
+       </property>  
+    </bean> -->
+    
+</beans>

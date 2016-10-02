@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<appender name="STDOUT"
+		class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p - %m%n"/>
+		</layout>
+	</appender>
+	<appender name="debug" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="f://source/magic/log/magic-web-debug.log"/>
+		<param name="MaxBackupIndex" value="300"/>
+		<param name="Encoding" value="UTF-8"/>
+		<param name="MaxFileSize" value="20MB"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ISO8601} %p [%c] - [%m]%n"/>
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="debug"/>
+			<param name="LevelMax" value="debug"/>
+			<param name="acceptOnMatch" value="true"/>
+		</filter>
+	</appender>		
+	<appender name="ibatis" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="f://WsSource/log/magic-web-ibatis.log"/>
+		<param name="MaxBackupIndex" value="300"/>
+		<param name="Encoding" value="UTF-8"/>
+		<param name="MaxFileSize" value="20MB"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ISO8601} %p [%c] - [%m]%n"/>
+		</layout>
+	</appender>
+	<appender name="info" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="f://WsSource/log/magic-web-info.log"/>
+		<param name="Encoding" value="UTF-8"/>
+		<param name="MaxBackupIndex" value="300"/>
+		<param name="MaxFileSize" value="20MB"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ISO8601} %p [%c] - [%m]%n"/>
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="info"/>
+			<param name="LevelMax" value="error"/>
+			<param name="acceptOnMatch" value="true"/>
+		</filter>
+	</appender>
+	<appender name="warn" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="f://WsSource/log/magic-web-warn.log"/>
+		<param name="MaxBackupIndex" value="3"/>
+		<param name="Encoding" value="UTF-8"/>
+		<param name="MaxFileSize" value="20MB"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ISO8601} %p [%c] - [%m]%n"/>
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="warn"/>
+			<param name="LevelMax" value="warn"/>
+			<param name="acceptOnMatch" value="true"/>
+		</filter>
+	</appender>
+	<appender name="error" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="f://WsSource/log/magic-web-error.log"/>
+		<param name="MaxBackupIndex" value="3"/>
+		<param name="Encoding" value="UTF-8"/>
+		<param name="MaxFileSize" value="20MB"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ISO8601} %p [%c] - [%m]%n"/>
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="error"/>
+			<param name="LevelMax" value="error"/>
+			<param name="acceptOnMatch" value="true"/>
+		</filter>		
+	</appender>
+	
+	
+	<logger name="com.ws" additivity="false">
+		<level value="debug"/>
+		<appender-ref ref="debug" />
+		<appender-ref ref="info" />
+		<appender-ref ref="warn" />
+		<appender-ref ref="error" />
+		<appender-ref ref="STDOUT"/>	
+	</logger>
+	
+	 <logger name="com.ibatis" additivity="false">
+		<level value="debug"/>
+		<appender-ref ref="STDOUT"/>
+	</logger>
+	<logger name="java.sql" additivity="false">
+		<level value="debug"/>
+		<appender-ref ref="STDOUT"/>
+	</logger> 
+	
+	<root>
+		<level value="info"/>
+		<appender-ref ref="debug" />		
+		<appender-ref ref="info" />
+		<appender-ref ref="warn" />
+		<appender-ref ref="error" />
+		<appender-ref ref="STDOUT"/>			
+	</root>
+</log4j:configuration>

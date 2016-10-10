@@ -22,4 +22,6 @@ public interface SpiderService {
 	public Result isRedirect(String url,String agent);
 
 	public String getRandomImageUrl();
+	
+	public String getRandomInfoWord();
 }

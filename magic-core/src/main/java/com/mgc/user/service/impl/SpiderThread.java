@@ -23,9 +23,11 @@ public class SpiderThread implements Runnable {
 	private static Logger logger = Logger.getLogger(SpiderThread.class);
 	private int fileNum;
 	private List<String> excludeList ;
-	public SpiderThread(int fileNum,List<String> excludeList){
+	private List<String> dicList;
+	public SpiderThread(int fileNum,List<String> excludeList,List<String> dicList){
 		this.fileNum = fileNum;
 		this.excludeList = excludeList;
+		this.dicList = dicList;
 	}
 	
 	public void run() {
@@ -62,9 +64,8 @@ public class SpiderThread implements Runnable {
 		String lineTxt = null;
 		while ((lineTxt = br.readLine()) != null) {
 			for (int i = 0; i < 76; i++) {
-				logger.info("当前页"+i);
 				String baiduUrl = "https://www.baidu.com/s?wd="+lineTxt+"&pn="+i+"0";
-				logger.info("当前url"+baiduUrl);
+				//logger.info("当前url"+baiduUrl);
 				Document doc = HttpClientFactory.getContentDocument(baiduUrl,
 						headers, "utf-8");
 				List<Element> elements = doc.getElementsByClass("f13");
@@ -72,6 +73,7 @@ public class SpiderThread implements Runnable {
 					for (Element element : elements) {
 						List<Element> aList = element.select("a[href^=http://www.baidu.com/link?]");
 						if(CollectionUtils.isNotEmpty(aList)){
+
 							Element urlElement = aList.get(0);
 							String url = urlElement.text();
 							int len = url.indexOf("/");
@@ -83,6 +85,32 @@ public class SpiderThread implements Runnable {
 								bw.newLine();
 								bw.flush();
 							}
+						
+							/*Element urlElement = aList.get(0);
+							String url = urlElement.text();
+							int len = url.indexOf("/");
+							if (len > 0) {
+								url = url.substring(0, len);
+								url = url.replace("\\.", "");
+							}
+							if(isExclude(url)){
+								for (String dic : dicList) {
+									String fckUrl = "http://"+url+dic;
+									logger.info("获取fckurl:"+fckUrl);
+									int status = 404;
+									try {
+										status = HttpClientFactory.getUrlStatus(fckUrl, headers);
+									} catch (Exception e) {
+										logger.error("获取状态失败："+fckUrl,e);
+									}
+									if(status == 200){
+										bw.write(fckUrl);
+										bw.newLine();
+										bw.flush();
+									}
+								}
+							}
+						*/
 						}
 					}
 				}

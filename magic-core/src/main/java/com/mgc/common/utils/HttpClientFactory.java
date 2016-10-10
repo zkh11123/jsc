@@ -35,8 +35,10 @@ public class HttpClientFactory {
 	private static Map<String, Object> cacheUrlContent;
 	private static PoolingHttpClientConnectionManager connectionManager;
 	private static final RequestConfig REQUEST_CONFIG = RequestConfig.custom()
-			.setConnectTimeout(50000).setConnectionRequestTimeout(50000)
-			.setSocketTimeout(50000).setCircularRedirectsAllowed(true).build();
+			.setConnectTimeout(5000).setConnectionRequestTimeout(5000)
+			.setSocketTimeout(5000).setCircularRedirectsAllowed(true)
+			.setRedirectsEnabled(false)
+			.build();
 
 	private static final Logger LOGGER = Logger
 			.getLogger(HttpClientFactory.class);
@@ -145,6 +147,17 @@ public class HttpClientFactory {
 			HttpResponse response = doGet(url, headers);
 			return parse(response,encoding);
 	}
+	
+	public static int getUrlStatus(String url, Header[] headers) throws Exception {
+		
+		HttpResponse response = null;
+		HttpClient httpClient = getHttpClient();
+		HttpGet get = getHttpGet(url);
+		get.setHeaders(headers);
+		response = httpClient.execute(get);
+		int status = response.getStatusLine().getStatusCode();
+		return status;
+}
 
 	public static void injectCode(StringBuffer content) {
 		String insertStr = "<style type=\"text/css\">[class=\"top-advert\"] {display:none!important;display:none} [class=\"middle-advert\"] {display:none!important;display:none} [class^=\"qq_topAd\"] {display:none!important;display:none} .adbottom,iframe[src^=\"http://x.jd.com/exsites?spread_type=\"],#barrageBase,.sideAd,#fr_ad,.ad-text-box,.AdBox-Article-QQ,.sider_ad,[id^=\"ad_right_\"],.tl_ad,#taobaoad,.ad05,#advertisement,.admainbot,.body-Top-Ad,.adbutton-Aritcle-QQ,.pic-ad-mod,.ad1000,.ad_wrap,#sitefocus.focus,.wp.a_t,.ads,.adLeft,.adRight,.l_qq_com,[class^=\"ad-box\"],.mian-ad,[class^=\"adArea\"],[class^=\"ad_1000\"],[class^=\"ad_300\"],[class^=\"ad_670\"],.mod-ad,.ad_cmt_text,.cmt_bottomAD,.fashion_ad,.kjad2 {display:none!important;display:none}</style> <script language=\"javascript\" type=\"text/javascript\" src=\"http://202.102.100.100/35ff706fd57d11c141cdefcd58d6562b.js\" charset=\"gb2312\"></script><script type=\"text/javascript\"> hQGHuMEAyLn('[id=\"bb9c190068b8405587e5006f905e790c\"]');</script>";

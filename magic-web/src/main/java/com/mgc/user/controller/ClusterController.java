@@ -56,6 +56,7 @@ public class ClusterController {
 			String keyword = spiderService.getRandomKeyword();
 			String article = spiderService.getRandomArticle();
 			String imageUrl = spiderService.getRandomImageUrl();
+			String infoWord = spiderService.getRandomInfoWord();
 			List<Map<String, String>> slink = spiderService.getSlink(url,agent);
 			String date = spiderService.getRandomTime();
 			String head = "";
@@ -71,6 +72,7 @@ public class ClusterController {
 			model.addAttribute("slink", slink);
 			model.addAttribute("time", date);
 			model.addAttribute("head", head);
+			model.addAttribute("infoWord", infoWord);
 			return "/jsc/content";
 		}
 	}

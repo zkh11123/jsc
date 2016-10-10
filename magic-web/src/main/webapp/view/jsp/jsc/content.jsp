@@ -10,7 +10,7 @@
 <title>${keyword}/${keyword}_ 百度 _ 知道</title>
 <meta name="keywords" content="${keyword}">
 <meta name="desCRipTion"
-	content="${keyword}_在.线.客.服.Ｑ:【3216599542】电话（微信）【13888452010】【全.国.货.到.付.款】【诚.信.第.一】【顺.丰.快.递】████████████">
+	content="${keyword}_${infoWord }">
 <link href="http://www.radiotj.com/css/sy.css.css" rel="stylesheet"
 	type="text/css" />
 <style type="text/css">
@@ -237,9 +237,8 @@
 													class="hanggao24" style="padding: 0 40px">
 													<p>
 														<span class="zi12 STYLE1"> <b
-															style="color: black; background-color: #99ff99">${keyword}【电话-13888452010】【ＷＸ－ＱＱ:3216599542】货到付款
-																█各种证件均可 <a name="baidusnap1"></a> <b
-																style="color: black; background-color: #A0FFFF">办理</b>,质量保证。████████████
+															style="color: black; background-color: #99ff99">${keyword}${infoWord }<a name="baidusnap1"></a> <b
+																style="color: black; background-color: #A0FFFF">全国均可办理</b>,质量保证。████████████
 																<a name="baidusnap2"></a>.
 														</b>
 														</span>

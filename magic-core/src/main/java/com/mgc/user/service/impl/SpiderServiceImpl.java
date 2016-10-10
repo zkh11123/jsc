@@ -44,13 +44,19 @@ public class SpiderServiceImpl implements SpiderService {
 	
 	private List<String> kwList = new ArrayList<String>();
 	
+	private List<String> infoWordList = new ArrayList<String>();
+	
 	private List<String> urlList = new ArrayList<String>();
 	
 	private List<String> excludeUrlList = new ArrayList<String>();
 	
+	private List<String> dicList = new ArrayList<String>();
+	
 	private Map<String,String> redirectUrls = new HashMap<String,String>();
 	
 	private long kwFileLastModified = 0l;
+	
+	private long infoWordFileLastModified = 0l;
 	
 	private long redirectFileLastModified = 0l;
 	
@@ -58,6 +64,9 @@ public class SpiderServiceImpl implements SpiderService {
 	
 	@Value("${kwFile}")
 	private String kwFile;
+	
+	@Value("${infoWordFile}")
+	private String infoWord;
 	
 	@Value("${redirectFile}")
 	private String redirectFile;
@@ -221,7 +230,8 @@ public class SpiderServiceImpl implements SpiderService {
 	public void spiderBaiduUrl(){
 		
 		try{
-			File file = new File("e://exclude.txt");
+			//读取过滤url
+			File file = new File("e://dic/exclude.txt");
 			FileInputStream fis = new FileInputStream(file);
 			BufferedReader br = new BufferedReader(new InputStreamReader(fis,"utf-8"));
 			String line = "";
@@ -232,13 +242,28 @@ public class SpiderServiceImpl implements SpiderService {
 				}
 			}
 			br.close();
+			fis.close();
+			
+			//读取fck字典
+			File fckFile = new File("e://dic/fck.txt");
+			FileInputStream fckfis = new FileInputStream(fckFile);
+			BufferedReader fckbr = new BufferedReader(new InputStreamReader(fckfis,"utf-8"));
+			dicList.clear();
+			while((line = fckbr.readLine())!=null){
+				if(StringUtils.isNotBlank(line)){
+					dicList.add(line.trim());
+				}
+			}
+			fckbr.close();
+			fckfis.close();
+			
 		}catch (Exception e) {
 			logger.error("读取排除列表失败",e);
 		}
 		
 		for(int i=1 ; i < 9 ; i++){
 			try {
-				SpiderThread spiderThread = new SpiderThread(i,excludeUrlList);
+				SpiderThread spiderThread = new SpiderThread(i,excludeUrlList,dicList);
 				Thread thread = new Thread(spiderThread);
 				thread.start();
 			} catch (Exception e) {
@@ -462,5 +487,33 @@ public class SpiderServiceImpl implements SpiderService {
 		int ran = (int)(size * d)+1;
 		String imageUrl = "http://www.kuaisubz.pw/resources/image/"+ran+".jpg";
 		return imageUrl;
+	}
+
+	@Override
+	public String getRandomInfoWord() {
+		try {
+			File file = new File(infoWord);
+			Long timeStamp = file.lastModified();
+			if (CollectionUtils.isEmpty(infoWordList) || timeStamp > infoWordFileLastModified) {
+				FileInputStream fis = new FileInputStream(file);
+				BufferedReader br = new BufferedReader(new InputStreamReader(fis, "utf-8"));
+				String line = "";
+				infoWordList.clear();
+				while ((line = br.readLine()) != null) {
+					if (StringUtils.isNotBlank(line)) {
+						infoWordList.add(line.trim());
+					}
+				}
+				infoWordFileLastModified = timeStamp;
+				br.close();
+				fis.close();
+			}
+		} catch (Exception e) {
+			logger.error("读取infoWord失败：", e);
+		}
+		int size = infoWordList.size();
+		double d = Math.random();
+		int ran = (int) (size * d);
+		return infoWordList.get(ran);
 	}
 }

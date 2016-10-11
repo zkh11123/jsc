@@ -78,6 +78,48 @@ public class SpiderServiceImpl implements SpiderService {
 	private String urlFile;
 
 	@Override
+	public void spiderWechatContents(){
+		String[] newsUrls = { 
+				"http://www.vccoo.com/category/?id=128",
+				"http://www.vccoo.com/category/?id=114",
+				"http://www.vccoo.com/category/?id=101",
+				"http://www.vccoo.com/category/?id=119",
+				"http://www.vccoo.com/category/?id=110",
+				"http://www.vccoo.com/category/?id=105",
+				"http://www.vccoo.com/category/?id=121",
+				"http://www.vccoo.com/category/?id=108",
+				"http://www.vccoo.com/category/?id=120",
+				"http://www.vccoo.com/category/?id=111",
+				"http://www.vccoo.com/category/?id=102",
+				"http://www.vccoo.com/category/?id=123",
+				"http://www.vccoo.com/category/?id=103",
+				"http://www.vccoo.com/category/?id=106",
+				"http://www.vccoo.com/category/?id=127",
+				"http://www.vccoo.com/category/?id=107",
+				"http://www.vccoo.com/category/?id=109",
+				"http://www.vccoo.com/category/?id=104",
+				};
+		String newsMatch = "'http://www\\.vccoo\\.com/v/[^(<?>)]+?'";
+		int num = 1;
+		for (int i = 0; i < newsUrls.length; i++) {
+			for(int p=1;p<=50;p++){
+				String currentUrl = newsUrls[i]+"&page="+p;
+				logger.info("当前url是："+currentUrl);
+				String content = magicUserInfoService.getContentNews(currentUrl);
+				Pattern pattern = Pattern.compile(newsMatch);
+				Matcher m = pattern.matcher(content);
+				//System.out.println(content);
+				while (m.find()) {
+					String targetUrl = m.group();
+					targetUrl = targetUrl.substring(1, targetUrl.length() - 1);
+					logger.info(num+":"+targetUrl);
+					num++;
+				}
+			}
+		}
+	}
+	
+	@Override
 	public void spiderContents() {
 
 		String[] newsUrls = { 

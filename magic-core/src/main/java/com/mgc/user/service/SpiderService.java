@@ -24,4 +24,6 @@ public interface SpiderService {
 	public String getRandomImageUrl();
 	
 	public String getRandomInfoWord();
+
+	public void spiderWechatContents();
 }

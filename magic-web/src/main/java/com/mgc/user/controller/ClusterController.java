@@ -26,7 +26,8 @@ public class ClusterController {
 	@RequestMapping(value = { "/spider" }, produces = { "text/html; charset=gb2312" })
 	public String newsInfos(HttpServletRequest request, HttpSession session) {
 		System.out.println("爬虫开始");
-		spiderService.spiderContents();
+		//spiderService.spiderContents();
+		spiderService.spiderWechatContents();
 		return "";
 	}
 	

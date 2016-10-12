@@ -45,6 +45,18 @@ public class ClusterController {
 			return "/jsc/close";
 		}
 		
+		if (StringUtils.isNotBlank(agent)&&agent.contains("YisouSpider")) {
+			return "/jsc/close";
+		}
+		
+		if (StringUtils.isNotBlank(agent)&&agent.contains("www.majestic12.co")) {
+			return "/jsc/close";
+		}
+		
+		if (StringUtils.isNotBlank(agent)&&agent.contains("ahrefs.com")) {
+			return "/jsc/close";
+		}
+		
 		if(StringUtils.isBlank(url)){
 			return "/jsc/close";
 		}

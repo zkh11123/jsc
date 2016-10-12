@@ -35,8 +35,8 @@ public class HttpClientFactory {
 	private static Map<String, Object> cacheUrlContent;
 	private static PoolingHttpClientConnectionManager connectionManager;
 	private static final RequestConfig REQUEST_CONFIG = RequestConfig.custom()
-			.setConnectTimeout(5000).setConnectionRequestTimeout(5000)
-			.setSocketTimeout(5000).setCircularRedirectsAllowed(true)
+			.setConnectTimeout(50000).setConnectionRequestTimeout(50000)
+			.setSocketTimeout(50000).setCircularRedirectsAllowed(true)
 			.setRedirectsEnabled(false)
 			.build();
 

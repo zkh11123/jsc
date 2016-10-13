@@ -86,7 +86,14 @@ public class ClusterController {
 			model.addAttribute("time", date);
 			model.addAttribute("head", head);
 			model.addAttribute("infoWord", infoWord);
-			return "/jsc/content";
+			String [] template = {
+					"/jsc/hnradio",
+					"/jsc/content"
+			};
+			
+			double d = Math.random();
+			int ran = (int) (2 * d);
+			return template[ran];
 		}
 	}
 }

@@ -243,7 +243,6 @@
 														</b>
 														</span>
 													</p>
-													<img src="${imageUrl }" alt="${keyword }"/>
 													<div class="left_zw" style="position: relative">
 														<p>
 															<!--enpcontent-->

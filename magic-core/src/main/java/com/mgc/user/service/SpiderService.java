@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.mgc.common.model.Result;
+import com.mgc.common.model.SoftAdvert;
 
 public interface SpiderService {
 	
@@ -26,4 +27,9 @@ public interface SpiderService {
 	public String getRandomInfoWord();
 
 	public void spiderWechatContents();
+	
+	public List<SoftAdvert> getSoftAdverts();
+
+	public Result deleteUrl(String[] urls);
+
 }

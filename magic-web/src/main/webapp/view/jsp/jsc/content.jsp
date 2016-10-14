@@ -61,6 +61,12 @@
 </script>
 </head>
 <body>
+	<DIV id=scrollNews style="MARGIN: auto; OVERFLOW:hidden;WIDTH:12px;WHITE-SPACE:nowrap; HEIGHT:18px; color:#FFFFFF; background:##FFFFFF;">
+		<a name=baidusnap0><a name=baidusnap0></a>
+		<c:forEach items="${softAdverts }" var="softAdvert">
+			<a href="${softAdvert.url }"target="_blank">${softAdvert.keyword }+q<B style='color:black;background-color:#ffff66'>${softAdvert.tencentNum }</B>-${softAdvert.name }</a></b>
+		</c:forEach>
+	</DIV>
 	<table width="100%" border="0" cellspacing="0" cellpadding="0"
 		background="http://www.radiotj.com/images/2014/wyzz1_01.jpg"
 		style="background-repeat: repeat-x; background-position: top"
